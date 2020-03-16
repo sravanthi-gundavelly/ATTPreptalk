@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="card shadow mb-4">
+            <img class="img-fluid" src="~/images/homelogo.png" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#hometab" role="tab" aria-controls="home" aria-selected="true">Simulate</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Analyze</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">MicroLearning</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" style="text-align: initial;">
+                    <div class="tab-pane active" id="hometab" role="tabpanel" aria-labelledby="home-tab">
+                        Use the simulate training tool to build skills and improve daily performance. Explore a catalog of synthetic call scenarios, each designed to accurately reflect what representatives experience in a typical workday. Led by the personal voice assistant, Jessica, and powered by voice recognition technology, these scenarios help teams build confidence and practice their customer service approach, thus empowering them on real-world calls and boosting their overall performance.       <br /><br />
+                        <a href="../Assessment/Assessment" class="d-none d-sm-inline-block btn  btn-primary shadow-sm">Start Training &nbsp;<i class="fas fa-arrow-circle-right fa-sm text-white-50"></i></a>
+                    </div>
+                    <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        Leverage a suite of analytics tools to explore course results, breakdowns, and more. Our Analyze section is where managers and supervisors can see where their teams are finding success and where improvements can be made.             <br /><br />
+                                                                                                                                                                                                                                                                       <a href="../Home/Analysis" class="d-none d-sm-inline-block btn  btn-primary shadow-sm">Explore Results&nbsp;<i class="fas fa-arrow-circle-right fa-sm text-white-50"></i></a>
+                    </div>
+                    <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+                        Discover bite-sized training assets that work into even the busiest workdays. The MicroLearning center is a gateway to useful digital content and is focused on offering easy-to-consume education that helps teams accomplish their goals and develop their skills. <br /><br />
+                                                                                                                                                                                                                                                                                                   <a href="../Home/MicroLearn" class="d-none d-sm-inline-block btn  btn-primary shadow-sm">Visit Learning Area &nbsp;<i class="fas fa-arrow-circle-right fa-sm text-white-50"></i></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="~/vendor/jquery/jquery.min.js"></script>
+<script>
+    var id = '@ViewBag.UserID';
+    if (id != '') {
+        localStorage.setItem("current", '@ViewBag.current');
+        localStorage.setItem("UserID", '@ViewBag.UserID');
+        localStorage.setItem("UserName", '@ViewBag.UserName');
+        localStorage.setItem("userimage", '@ViewBag.UserImage');
+        localStorage.setItem("time", '@ViewBag.time');
+        localStorage.setItem("Role", '@ViewBag.Role');
+    }
+
+</script>
+
+
+

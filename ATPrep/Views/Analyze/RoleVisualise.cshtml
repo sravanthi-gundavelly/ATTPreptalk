@@ -1,0 +1,171 @@
+﻿@{
+    ViewData["Title"] = "Visualization Dashboards";
+}
+<script src="~/js/charts/d3.js"></script>
+<script src="~/js/charts/userpie.js"></script>
+<script src="~/js/charts/userbar.js"></script>
+<script src="~/js/charts/userbubblechart.js"></script>
+<link rel="stylesheet" type="text/css" href="~/css/pie.css">
+<link rel="stylesheet" type="text/css" href="~/css/barchart.css">
+
+<div class="container-fluid" ng-app="roleapp" ng-controller="rolecontroller" ng-init="ready()">
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+                {{username}} - Visualization Dashboards
+            </h6>
+        </div>
+        <div class="card-body barchart-body">
+            <div class="row col-md-12">
+                <div class="col-md-6">
+                    <div class="card shadow mb-2">
+                        <div class="card-header py-3">
+                            <h5 class="m-0 font-weight-bold text-primary">User Average Technical Score </h5>
+                        </div>
+                        <div id="Usertscore" width="300" style="height:400px;">
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow mb-2">
+                        <div class="card-header py-3">
+                            <h5 class="m-0 font-weight-bold text-primary">User Average Soft Skill Score</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-body" id="Userescore" width="300" style="height:350px;">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row col-md-12">
+                <div class="col-md-6">
+                    <div class="card shadow mb-2">
+                        <div class="card-header py-3">
+                            <h5 class="m-0 font-weight-bold text-primary">
+                                No. of simulations taken by - {{username}}</h5>
+                        </div>
+                        <div class="card-body">
+                            <svg id="usersimulations" width="300" height="350" style="height:400px;overflow:inherit;margin-left:10%"></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow mb-2">
+                        <div class="card-header py-3">
+                            <h5 class="m-0 font-weight-bold text-primary">{{username}} - Average TScore and Soft Score
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="tooltip" class="hidden">
+                                <p>
+                                    <strong>Important Label Heading</strong>
+                                </p>
+                                <p><span id="value">100</span>%</p>
+                            </div>
+                            @*<svg id="piecharviz" width="300" height="350" style="height:400px;overflow:inherit;margin-left:10%">
+            <p><span id="value"></span></p>
+        </svg>*@
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="../Home/Analysis" class="d-none d-sm-inline-block btn  btn-primary shadow-sm">
+                <i class="fas fa-arrow-circle-left fa-sm text-white-50"></i> Go Back
+            </a>
+        </div>
+    </div>
+   
+
+</div>
+<script src="~/js/angular.js/angular.min.js"></script>
+@*<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>*@
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    var app = angular.module('roleapp', []);
+    app.controller('rolecontroller', function ($scope, $timeout) {
+        $scope.username = localStorage.getItem("UserName");
+    });
+
+    var UserID = localStorage.getItem("UserID");
+    var Role = localStorage.getItem("Role");
+    $.ajax({
+        url: Url + "get_user_assessment_daily_counts_forplot?userid=" + UserID,
+        type: 'GET',
+        processData: false,
+        contentType: false,
+        success: function (res) {
+            var tscorebyday = [];
+            var escorebyday = [];
+            var assessmentperday = [];
+            var tescore = []; 
+            var piescore = 0;
+            var pietscore = 0;
+            for (var i = 0; i < res.length; i++) {
+                tscorebyday.push({ "label": res[i].label, "value": res[i].tscore })
+                escorebyday.push({ "label": res[i].label, "value": res[i].escore })
+                assessmentperday.push({ "label": res[i].label, "value": res[i].count })
+                piescore = piescore + parseFloat(res[i].escore);
+                pietscore = pietscore + parseFloat(res[i].tscore);
+            }
+            tescore.push({ "label": "TScore", "value": pietscore / res.length })
+            tescore.push({ "label": "SoftSscore", "value": piescore / res.length })
+            plotUserBarChart(tscorebyday,"Usertscore","TScore");
+            plotUserBarChart(escorebyday,"Userescore","SoftScore");
+            plotUserBarChart(assessmentperday,"usersimulations","No.of Simulations");
+            //plotUserPieChart(tescore);
+            piechart(tescore);
+        },
+        error: function (xhr, status, error) {
+            console.log('error fetching  data')
+        }
+    });
+
+
+</script>
+
+<style>
+    text {
+        font-family: sans-serif;
+        font-size: 12px;
+        fill: white;
+    }
+
+    #tooltip {
+        position: absolute;
+        width: 200px;
+        height: auto;
+        padding: 10px;
+        background-color: white;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        -mox-box-shadow: 4px 4px 4px 10px rgba(0, 0, 0, 0.4);
+        box-shadow: 4px 4px 10px rbga(0, 0, 0, 0.4) pointer-events: none;
+    }
+
+        #tooltip.hidden {
+            opacity: 0;
+        }
+
+        #tooltip p {
+            margin: 0;
+            font-family: sans-serif;
+            font-size: 16px;
+            line-height: 20px;
+        }
+</style>
+<script>
+   
+</script>
+
+

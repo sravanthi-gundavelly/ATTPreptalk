@@ -1,0 +1,246 @@
+﻿@{
+    ViewBag.Title = "Simulate";
+}
+
+<link rel="stylesheet" href="~/css/botuitheme.css" />
+<link rel="stylesheet" href="~/css/botui.css" />
+
+<div class="container-fluid" ng-app="myApp" ng-controller="myCtrl" data-ng-init="pageload()">
+    <div class="col-sm-10" style=" text-align: initial;">
+        <ul class="nav nav-pills nav-justified">
+            <li>
+                <audio id="sysAudio" autoplay controls hidden="hidden">
+                    <source id="audSource" type="audio/wav">
+                </audio>
+            </li>
+        </ul>
+
+    </div>
+    <div class="col-sm-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Simulate</h6>
+            </div>
+            <div class="card-body">
+                Partner with PrepTalk, our intelligent voice assistant, to complete a range of true-to-life customer service simulations. Thanks to voice technology, participants chat with Jessica just like they would any other customer. Tackle new challenges, bolster skills, and create more confident team players by practicing any of the scenarios listed below. <br /><br />
+                Please note that you’ll need access to a microphone to complete these assessments.
+
+            </div>
+            <div class="card-body" id="selecttopic">
+                To start the simulation please select the option.
+            </div>
+
+        </div>
+
+        <div class="card shadow mb-4" id="fullaudio" style="display:none;">
+            <div class="card-body">
+                <audio id="simulateaudio" controls style="width:-webkit-fill-available;">
+                    <source id="simulateSource" type="audio/wav">
+                </audio>
+            </div>
+        </div>
+        <div style="display:none;" class="card shadow mb-4" id="startsimulate">
+
+            <div class="card-body">
+                Click the start button to initiate the Simulation session
+                <br /><br />
+                <button class="d-none d-sm-inline-block btn  btn-primary shadow-sm" ng-click="StartAssessment()">
+                    Start
+                </button>
+            </div>
+
+        </div>
+        @*<div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Instructions</h6>
+                </div>
+                <div class="card-body">
+                    To start the assessment please click on start button
+                </div>
+            </div>*@
+        <div class="col-sm-10" id="startbutton" style="margin-top:20px;">
+            <button ng-click="displaystart('ATandTGeneralQuestions')" style="width:300px;height:360px;border:1px solid" class="d-none d-sm-inline-block btn btn-sm  shadow-sm">
+                @*General Customer Support*@
+                <img width="100%" src="~/images/general.jpg.png" />
+                <p>
+                    <br />
+                    <b class="text-primary">General Support Enquiry & Basic Troubleshooting:</b><br />
+                    Information on Plans and general tech support<br />
+                    AT&T Customer Support Training Team<br />
+                    <span style="color:orange;" class="fa fa-star checked"></span>
+                    <span style="color:orange;" class="fa fa-star checked"></span>
+                    <span style="color:orange;" class="fa fa-star checked"></span>
+                    <span style="color:orange;" class="fa fa-star checked"></span>
+                    <span style="color:orange;" class="fa fa-star checked"></span>
+                    <br />
+                    795/955 Associates Taken
+                </p>
+            </button>
+
+            <button ng-click="displaystart('product')" style="width:300px;height:360px;border:1px solid" class="d-none d-sm-inline-block btn btn-sm  shadow-sm">
+                @*U-Verse Product Support*@
+                <img width="100%" src="~/images/uverse.jpg" />
+                <p>
+                    <br />
+                    <b class="text-primary">Learn to support the U-verse product:</b><br />
+                    Technical dive into features & pricing<br /><br />
+                    AT&T U-verse Product Team<br />
+                    <span style="color:orange;" class="fa fa-star checked"></span>
+                    <span style="color:orange;" class="fa fa-star checked"></span>
+                    <span style="color:orange;" class="fa fa-star checked"></span>
+                    <span style="color:orange;" class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <br />
+                    455/650 Associates Taken
+                </p>
+            </button>
+            <div>
+                <br />
+                <button style="float:right;" class="d-none d-sm-inline-block btn btn-primary shadow-sm">
+                    More simulation courses >>
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div id="startAudio" class="botui-app-container card shadow col-md-7" style="display:none;">
+                <div id="my-botui-app">
+                    <bot-ui></bot-ui>
+                </div>
+                <div>
+                    <button class="d-none d-sm-inline-block btn  btn-primary shadow-sm" ng-click="evaluate()">Evaluate</button>
+                </div>
+
+            </div>
+            <div class="col-md-2" id="micimage" style="display:none;">
+                <img src="~/images/audio.gif" class="audiowidth" />
+            </div>
+            <div class="col-sm-5 " id="assessscore" style="display:none;height:500px;overflow:auto;font-size:12px;">
+                <table class="table table-bordered">
+                    <thead style="background: #1c447f;color: white;">
+                        <tr>
+                            <th>PrepTalk Question</th>
+                            <th>Sales Associate Response</th>
+                            <th>Technical Score (A)</th>
+                            <th>Soft-Skill Score (B)</th>
+                            <th>Total Score (A + B)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr ng-repeat="data in ScoreList">
+                            <td>{{data.question}}</td>
+                            <td>{{data.text}}</td>
+                            <td ng-class="data.tclass">{{data.tscore}}</td>
+                            <td ng-class="data.eclass">{{data.escore}}</td>
+                            <td ng-class="data.teclass">{{(data.escore)*1 + (data.tscore)*1 }}</td>
+                        </tr>
+                        <tr style="background-color:lightblue">
+                            <td colspan="2">Total</td>
+                            <td ng-class="data.totaltclass">{{totalTQ }}</td>
+                            <td ng-class="data.totaleclass">{{totalEQ}}</td>
+                            <td ng-class="data.totalteclass">{{(totalTQ *1)+ (totalEQ*1) }}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <div class="row" id="legends" style="display:none;">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td>
+                                <span>Tscore/Sscore </span><br />
+                                <span><i class="fas fa-square" style="color:#498e49;"> </i>  >= 7</span>&nbsp;
+                                <span><i class="fas fa-square" style="color:orange;"> </i> >= 5</span>&nbsp;
+                                <span><i class="fas fa-square" style="color:#f14b4b;"> </i> < 5</span><br />
+                            </td>
+                            <td>
+
+                                <span>TotalScore </span><br />
+                                <span><i class="fas fa-square" style="color:#498e49;"> </i>  >= 17</span>&nbsp;
+                                <span><i class="fas fa-square" style="color:orange;"> </i> >= 12</span>&nbsp;
+                                <span><i class="fas fa-square" style="color:#f14b4b;"> </i> < 12</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <br />
+
+
+        <br />
+        <div class="row" id="analysis" style="display:none;">
+            <a href="../Home/Analysis" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                Go to Test Analysis
+            </a>
+        </div>
+
+
+
+
+    </div>
+
+</div>
+<style>
+    .profil > img.agent {
+        content: url("/images/jessie.jpg");
+    }
+
+    .profil > img.human {
+        /*content: url("/images/jessie.jpg");*/
+        border-radius: 50%;
+    }
+</style>
+@*<style>
+        .profil > img.agent {
+            content: url("/images/cinde_blue.png");
+        }
+
+        .profil > img.human {
+            /*content: url("/images/jessie.jpg");*/
+            border-radius: 50%;
+        }
+
+        .profil > span.human {
+            content: "abc";
+            border-radius: 50%;
+        }
+
+        .profil > span {
+            color: grey;
+            font-size: 10px;
+        }
+
+        .custom-class {
+            float: left;
+        }
+        /*span{
+            font-size:12px;
+        }*/
+        li a:active {
+            background-color: #516f9d;
+        }
+        /*.custom-class{
+            text-transform:capitalize;
+        }*/
+
+    </style>*@
+
+<script src="~/js/angular.js/angular.min.js"></script>
+@*<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>*@
+<script type="text/javascript">
+
+
+</script>
+<script src="~/js/botui/botui.min.js"></script>
+<script src="~/js/botui/botui.js"></script>
+<script src="~/js/vue/vue.min.js"></script>
+<script src="~/js/audio.js"></script>
+<script src="~/js/index.js"></script>
+@*<script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/botui/build/botui.js"></script>*@

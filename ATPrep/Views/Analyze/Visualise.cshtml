@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewData["Title"] = "Visualization Dashboards";
+}
+
+
+<link rel="stylesheet" type="text/css" href="~/css/pie.css">
+<link rel="stylesheet" type="text/css" href="~/css/barchart.css">
+<link rel="stylesheet" type="text/css" href="~/css/stackedbarchart.css">
+<script src="~/js/charts/d3.js"></script>
+<script src="~/js/charts/pie.js"></script>
+<script src="~/js/charts/stackedbarchat.js"></script>
+<script src="~/js/charts/barchar.js"></script>
+
+<div class="container-fluid" ng-app="analysis" ng-controller="analysiscontroller" ng-init="ready()">
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Alaska Retail Excellence Team - Visualization Dashboards</h6>
+        </div>
+        <div class="card-body barchart-body">
+            <div class="row col-md-12">
+                <div class="col-md-6">
+                    <div class="card shadow mb-2">
+                        <div class="card-header py-3">
+                            <h5 class="m-0 font-weight-bold text-primary">User Average Technical Score </h5>
+                        </div>
+                        <div id="my_dataviz" width="300" style="height:400px;">
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow mb-2">
+                        <div class="card-header py-3">
+                            <h5 class="m-0 font-weight-bold text-primary">No. of simulations taken by Sales Associates</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-body" id="piecharviz" width="300" style="height:350px;">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row col-md-12">
+                <div class="col-md-6">
+                    <div class="card shadow mb-2">
+                        <div class="card-header py-3">
+                            <h5 class="m-0 font-weight-bold text-primary">Stacked Histogram of Technical and Softskill scores</h5>
+                        </div>
+                        <div class="card-body">
+                            <svg id="chart" width="300" height="350" style="height:400px;overflow:inherit;margin-left:10%"></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow mb-2">
+                        <div class="card-header py-3">
+                            <h5 class="m-0 font-weight-bold text-primary">Daily view of Team's stacked average score</h5>
+                        </div>
+                        <div class="card-body">
+
+                            <svg id="chart1" width="300" height="350" style="height:400px;overflow:inherit;margin-left:10%"></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="../Home/Analysis" class="d-none d-sm-inline-block btn  btn-primary shadow-sm">
+                <i class="fas fa-arrow-circle-left fa-sm text-white-50"></i> Go Back
+            </a>
+        </div>
+    </div>
+
+
+  
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    var UserID = localStorage.getItem("UserID");
+    var Role = localStorage.getItem("Role");
+    $.ajax({
+        url: Url + "get_all_users_assessment_counts_forplot?userid=" + UserID + "&role=" + Role,
+        //    url: "http://p0152610:81/get_all_users_assessment_counts_forplot",
+        //  url: "https://preptalk.bfmdev1.com/get_all_users_assessment_counts_forplot",
+        type: 'GET',
+        processData: false,
+        contentType: false,
+        success: function (res) {
+            plotPieChart(res);
+            plotBarChart(res);
+            plotStackedBarChart(res, "#chart");
+        },
+        error: function (xhr, status, error) {
+            console.log('error fetching  data')
+        }
+    });
+
+    $.ajax({
+        url: Url + "get_all_users_assessment_daily_counts_forplot?userid=" + UserID + "&role=" + Role,
+        // url: "https://preptalk.bfmdev1.com/get_all_users_assessment_daily_counts_forplot",
+        type: 'GET',
+        processData: false,
+        contentType: false,
+        success: function (res) {
+            console.log(res)
+            plotStackedBarChart(res, "#chart1");
+        },
+        error: function (xhr, status, error) {
+            console.log('error fetching  data')
+        }
+    });
+
+</script>

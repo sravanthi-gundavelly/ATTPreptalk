@@ -1,0 +1,362 @@
+﻿
+@{
+    Layout = "";
+}
+
+<link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<link href="~/css/sb-admin-2.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<style>
+    .form-group {
+        margin: 10px;
+    }
+
+    .fontfam {
+        font-family: Nunito,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        font-size: 16px;
+        font-weight: 400;
+    }
+</style>
+<div id="wrapper">
+
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light  mb-4 static-top">
+                <!-- Sidebar Toggle (Topbar) -->
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <img class="logowidth" src="~/images/Intelligent-Automation-transparent-logo.png" />
+                <ul class="navbar-nav ml-auto">
+                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                    <li class="nav-item dropdown no-arrow d-sm-none">
+                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <!-- Dropdown - Messages -->
+                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                            <form class="form-inline mr-auto w-100 navbar-search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button">
+                                            <i class="fas fa-search fa-sm"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                    <!-- Nav Item - Alerts -->
+                    <!-- Nav Item - Messages -->
+                    <li class="nav-item dropdown no-arrow mx-1">
+                        <img class="logowidth" src="~/images/att.png" />
+                        <!-- Dropdown - Messages -->
+
+                    </li>
+
+                </ul>
+            </nav>
+
+
+
+
+        </div>
+        <div class="container-fluid text-center" style="background:white;">
+            <div class="row" style="display:block;">
+                <span style="color:red;"><b>@ViewBag.ErrorMessage</b></span>
+
+            </div>
+            <div class="row content" style="margin:30px;">
+                <div class="col-md-8">
+                    <video style="margin-top:10px;width:95%;" controls autoplay muted>
+                        <source src="~/images/attpreptalk (online-video-cutter.com).mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="col-md-3 fontfam" style="background-color:#f1f4f9; margin:10px;border:outset;border-radius:20px;width:350px;">
+
+                    <div name="login">
+                        <form action="@Url.Action("Login", "Home")" method="post" name="login">
+                            <div class="logo mb-3">
+                                <h4 style="margin-top:10PX;">Sales Associate Login</h4>
+                                <hr />
+                            </div>
+
+                            <div id="error">
+                                <span></span>
+                            </div>
+                            <div class="form-group">
+                                <span style="float:left" for="exampleInputEmail1">User ID</span><br />
+                                <input type="text" name="UserID" class="form-control" id="UserName" aria-describedby="emailHelp" placeholder="Enter User ID">
+                            </div>
+                            <div class="form-group">
+                                <span style="float:left" for="exampleInputEmail1">Password</span><br />
+                                <input type="password" name="Password" id="password" class="form-control" aria-describedby="emailHelp" placeholder="Enter Password">
+                            </div>
+                            <div class="col-md-12 text-center ">
+                                <button id="loginBtn" class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <br />
+                    <a href="#">Need Help ?</a>
+                    <br />
+                    <a href="#">Report Login Issues</a><br />
+                    <p style="font-size:12px;margin-top:15px;">
+                        <a data-toggle="modal" data-target="#exampleModalLong" href="">Terms of Use</a> |
+                        <a data-toggle="modal" data-target="#exampleModal" href=""> Browser and Display Compatibility</a><br />
+                        Copyright © 2020 Pactera EDGE<br />
+                        Entry to this site is restricted to employees and affiliates.
+
+                    </p>
+                    <div class="modal fade fontfam" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Terms of Use</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>
+                                        Copyright © @DateTime.Now.Year,Pactera Edge. All rights reserved.<br /><br />
+
+                                        The contents hereof are the sole and exclusive property of Pactera Edge  and may not be, for whatsoever purpose, reproduced, stored, copied or archived in any manner whatsoever either in full or in parts without the prior express consent of Pactera Edge.
+
+                                        The contents hereof are purely for internal circulation in Pactera Edge and any access of whatsoever nature of these materials outside the Pactera Edge network is strictly prohibited and will attract legal liability of both civil and criminal nature. Any access of these materials outside the Pactera Edge network amounts to an act of infringement of the intellectual and other proprietary rights of Pactera Edge.
+
+
+
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade fontfam" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="exampleModalLongTitle">Browser and Display Compatibility</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>
+                                        Preptalk Demo Login page is compatible with the following browsers:<br />
+
+                                        Internet Explorer 11<br />
+                                        Mozila Firefox 54<br />
+                                        Google Chrome 58<br />
+                                        Safari iOS 11<br /><br />
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><br />
+
+            </div>
+        </div>
+        <footer class="sticky-footer bg-black fontfam" style="color:darkgrey;">
+            <div class="row col-md-12">
+                <div class="col-md-5">
+                    <img src="~/images/logo-lighter.png"><br />
+                    <span>Visit <a style="color:darkgrey;" href="https://www.pactera-edge.com/" target="_blank">Pactera-edge.com</a></span>
+                </div>
+
+                <div class="col-md-7" style="text-align:right;">
+                    <span>For Further Information,please contact <span style="color:#4e73df;">Tami.Sulzberg@pactera.com</span></span><br />
+                    <span>© @DateTime.Now.Year Pactera Edge.All rights reserved.</span>
+                </div>
+
+            </div>
+            @*<div style="margin:30px;">
+                    <div class=" my-auto">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img src="~/images/logo-lighter.png"><br />
+                                <ul class="footerul">
+                                    <li><img src="~/images/pactera-arrow-icon.png">&nbsp;<a class="anchorfooter" href="https://www.pactera-edge.com/about-us"><label>ABOUT US</label></a></li>
+                                    <br>
+                                    <li><img src="~/images/pactera-arrow-icon.png">&nbsp;<a class="anchorfooter" href="https://www.pactera-edge.com/careers"><label>CAREERS</label></a></li>
+                                    <br>
+                                    <li><img src="~/images/pactera-arrow-icon.png">&nbsp;<a class="anchorfooter" href="https://www.pactera-edge.com/insights/case-studies"><label>CASE STUDIES</label></a></li>
+                                    <br>
+                                    <li><img src="~/images/pactera-arrow-icon.png">&nbsp;<a class="anchorfooter" href="https://www.pactera-edge.com/insights"><label>INSIGHTS</label></a></li>
+                                </ul>
+                            </div>
+                            <div class="vl"></div>
+
+                            <div class="col-md-2">
+                                <label class="labelfooter">NEW YORK</label><br>
+                                <ul class="footerlocation">
+                                    <li>
+                                        <img src="~/images/location-icon.png">&nbsp;
+                                        102 Madison Ave 2nd Floor New York, NY 10016
+                                    </li>
+                                    <br>
+                                    <li>
+                                        <img src="~/images/phone-icon.png">&nbsp;
+
+                                        1.646.290.6124
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="labelfooter">CHICAGO</label><br>
+                                <ul class="footerlocation">
+                                    <li>
+                                        <img src="~/images/location-icon.png">&nbsp;
+
+                                        500 W Madison St #1610, Chicago, IL 60661
+                                    </li>
+                                    <br>
+                                    <li>
+                                        <img src="~/images/phone-icon.png">&nbsp;
+
+                                        1.312.754.9220
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                            <div class="col-md-2">
+                                <label class="labelfooter">SEATTLE</label><br>
+                                <ul class="footerlocation">
+                                    <li>
+                                        <img src="~/images/location-icon.png">&nbsp;
+
+                                        14980 NE 31st Way Suite 100 Redmond, WA 98052
+                                    </li>
+                                    <br>
+                                    <li>
+                                        <img src="~/images/phone-icon.png">&nbsp;
+                                        1.425.233.8578
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="vl"></div>
+
+                            <div class="col-md-2">
+                                <label class="labelfooter"><b>STAY CONNECTED</b></label><br>
+                                <ul class="footerlocation">
+                                    <li>
+                                        <a href="https://www.facebook.com/Pactera"><img src="~/images/fb-icon.png" /></a>&nbsp;&nbsp;
+                                        <a href="https://www.linkedin.com/company/pactera"><img src="~/images/lk-icon.png" /></a>&nbsp;&nbsp;
+                                        <a href="https://twitter.com/pactera"><img src="~/images/tt-icon.png" /></a>
+                                    </li>
+                                    <hr />
+                                    <li>
+                                        <a class="anchorfooter" href="https://www.pactera-edge.com/locations">SEE OUR GLOBAL LOCATIONS</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="col-md-6 col-md-offset-3">
+                                <a href="https://contactlogicapp.azurewebsites.net/" target="_blank">
+                                    <button class="block contactus">CONTACT US</button>
+                                </a>
+                            </div>
+                            <hr />
+
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12 footerlocation">
+                                <span>© @DateTime.Now.Year Pactera Edge. All rights reserved.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+        </footer>
+        <!-- End of Footer -->
+    </div>
+
+    <!-- End of Content Wrapper -->
+</div>
+
+<script>
+
+        var input = document.getElementById("UserName");
+        input.addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("loginBtn").click();
+            }
+        });
+
+        var pas = document.getElementById("password");
+        pas.addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("loginBtn").click();
+            }
+        });
+
+
+    function login() {
+        localStorage.setItem("UserName","");
+        localStorage.setItem("UserID", "");
+        localStorage.setItem("session", "");
+
+            var data = new FormData();
+            var UserName = $("#UserName").val();
+            var Password = $("#password").val();
+
+            data.append('userid', UserName);
+            data.append('password', Password);
+            $.ajax({
+              url: "https://preptalk.bfmdev1.com/validate_user",
+                 // url: "http://p0152610:81/validate_user",
+                type: 'POST',
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    console.log(res);
+                    var User_ID = res.id;
+                    localStorage.setItem("UserID", User_ID);
+                    var username = res.name.split(" ");
+                    localStorage.setItem("UserName", username[0]);
+                    localStorage.setItem("userimage", res.userimage);
+                    var url = '@Url.Action("Home", "Home")';
+                    var url1 = '@Url.Action("Home", "Index")';
+                    if (User_ID != null) {
+                        window.location.href = url;
+                    }
+                    else {
+                        window.location.href = url1;
+                    }
+                },
+                error: function (xhr, status, error) {
+                  //  alert("error");
+                }
+            });
+        }
+
+
+
+
+</script>
+
+

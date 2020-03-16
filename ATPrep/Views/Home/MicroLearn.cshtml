@@ -1,0 +1,154 @@
+﻿
+@{
+    ViewData["Title"] = "MicroLearning";
+}
+<style>
+
+    h4 {
+        font-weight: bold;
+    }
+
+    .card1 {
+        position: relative;
+        display: flex;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid #e3e6f0;
+        border-radius: .35rem;
+        min-height:99px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Micro Learning</h6>
+        </div>
+        <div class="card-body">
+            Explore a catalog of easy-to-consume educational materials designed to fit seamlessly into a team’s busy workday. Easily integrated with most learning management systems, the courses listed below are designed to optimize how learning happens across the ranks of customer service team, providing a valuable, business-friendly vehicle to power team-wide enrichment.
+        </div>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <a  data-toggle="modal" data-target="#underdev" href="" class="card1 shadow mb-4 anchor hugebtn">
+                        <span class="col-sm-3 abc">
+                            <i class="imgSize fa fa-keyboard"></i>
+                        </span>
+                        <h4 class="headLeft">AT&T Wireless Broadband troubleshooting </h4>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a  data-toggle="modal" data-target="#underdev" href="" class="card1 shadow mb-4 anchor hugebtn"><span class="col-sm-3 abc"><i class="imgSize fas fa-language"></i></span><h4 class="headLeft">DIRECTV Troubleshooting</h4></a>
+                </div>
+                <div class="col-md-4">
+                    <a  data-toggle="modal" data-target="#underdev" href="" class="card1 shadow mb-4 anchor hugebtn"><span class="col-sm-3 abc"><i class="imgSize fas fa-chart-line"></i></span><h4 class="headLeft">Overview of Wireless Plans</h4></a>
+
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-4">
+                    <a  data-toggle="modal" data-target="#underdev" href="" class="card1 shadow mb-4 anchor hugebtn"><span class="col-sm-3 abc"><i class="imgSize fa fa-users"></i></span><h4 class="headLeft">Soft-Skills course(s)</h4></a>
+
+                </div>
+                <div class="col-md-4">
+                    <a style="background-color:#f2f8fb;"  data-toggle="modal" data-target="#underdev" href=""  class="card1 shadow mb-4 hugebtn"><span class="col-sm-3 abc"><i class="imgSize fa fa-briefcase"></i></span><h4 class="headLeft">Most Important HR Policies</h4></a>
+
+                </div>
+                <div class="col-md-4">
+                    <a style="background-color:#f2f8fb;"  data-toggle="modal" data-target="#underdev" href=""  class="card1 shadow mb-4 anchor hugebtn"><span class="col-sm-3 abc"><i class="imgSize fa fa-cogs"></i></span><h4 class="headLeft">Incident reporting - IT</h4></a>
+
+                </div>
+
+            </div>
+
+
+            <div style="color:black;" class="modal fade fontfam" id="underdev" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="exampleModalLongTitle">Micro Learning</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                           <img src="~/images/Att8447.PNG" style="width:100%;" class="img-fluid"/>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    @*<div class="card-body">
+            <div class="row divClass">
+                <div class="col-sm-4 card-body">
+                    <a target="_blank" href="https://www.edx.org/course/subject/computer-science" class="anchor form-control hugebtn"><span class="col-sm-3 abc"><img class="imgSize" src="~/images/keyboard.png" /></span><h3 class="headLeft">Computer Science</h3></a>
+                </div>
+                <div class="col-sm-4">
+                    <a target="_blank" href="https://www.edx.org/course/subject/langua" class="anchor form-control hugebtn"><span class="col-sm-3 abc"><img class="imgSize" src="~/images/language.png" /></span><h3 class="headLeft">Language</h3></a>
+                </div>
+                <div class="col-sm-4">
+                    <a href="https://www.edx.org/course/subject/data-science" target="_blank" class="anchor form-control hugebtn"><span class="col-sm-3 abc"><img class="imgSize" src="~/images/datascience.png" /></span><h3 class="headLeft">Data Science</h3></a>
+                </div>
+            </div>
+            <br />
+            <div class="row" style="margin-top:25px;">
+                <div class="col-sm-4">
+                    <a href="https://www.edx.org/course/subject/business-management" target="_blank" class="anchor form-control hugebtn"><span class="col-sm-3 abc"><img class="imgSize" src="~/images/business.png" /></span><h3 class="headLeft">Business Management</h3></a>
+                </div>
+                <div class="col-sm-4">
+                    <a href="https://www.edx.org/course/subject/engineering" target="_blank" class="anchor form-control hugebtn"><span class="col-sm-3 abc"><img class="imgSize" src="~/images/product.png" /></span><h3 class="headLeft">Product Engineering</h3></a>
+                </div>
+                <div class="col-sm-4">
+                    <a href="https://www.edx.org/course/subject/humanities" target="_blank" class="anchor form-control hugebtn"><span class="col-sm-3 abc"><img class="imgSize" src="~/images/hr.png" /></span><h3 class="headLeft">HR Policy</h3></a>
+                </div>
+            </div>
+        </div>*@
+
+
+    <div class="col-sm-12" style="margin:20px;">
+        <button class="d-none d-sm-inline-block btn  btn-primary shadow-sm">Learn more skills >> </button>
+
+    </div>
+</div>
+
+<style>
+    .abc {
+        background: #d7e3fc;
+        flex: 0 0 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 9px;
+        width:45px;
+        margin-right:10px;
+        margin-left:15px;
+    }
+    .imgSize{
+        height:20px;
+    }
+    .headLeft{
+        text-align:left;
+        padding-top:18px;
+    }
+    .anchor:visited {
+        background-color:white;
+    }
+
+    .anchor:hover {
+        background-color: #f5f8ff;
+    }
+</style>

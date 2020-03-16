@@ -1,0 +1,214 @@
+﻿
+@{
+    ViewData["Title"] = "Analyze";
+}
+<div class="container-fluid" ng-app="analysis" ng-controller="analysiscontroller" ng-init="ready()">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Analyze</h6>
+        </div>
+        <div class="card-body">
+            Here you’ll find a suite of data tools designed to make measuring and processing assessment results easy. Candidate responses are run through scoring algorithms to offer greater clarity on individual strengths and weaknesses, creating new opportunities for productive dialogue between supervisors and their teams.
+        </div>
+    </div>
+
+
+    <div class="card shadow mb-4">
+        <div class="card-body">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#hometab" role="tab" aria-controls="home" aria-selected="true">Simple Table Analytics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Visualization Dashboards</a>
+                    </li>
+                    <li class="nav-item" ng-if="userRole != 'User'">
+                        <a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">Text Analytics</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="card-body">
+                    <div class="tab-content" style="text-align: initial;">
+                        <div class="tab-pane active" id="hometab" role="tabpanel" aria-labelledby="home-tab">
+                            Our system outputs an intuitive tabular view of an individual’s results for every conversation, which makes gathering insights easy. To help assess an individual’s performance, it also provides a benchmark of team performance. <br /> <br />
+                            The generated table provides numerical scoring of the simulated calls across three core metrics: Technical Score, Soft-Skill Score, and Total Score (Tech + Soft-Skill). A quick look at the table provides insights on which area (Technical or Soft-Skills) one must focus their training to earn higher customer satisfaction scores.
+                            <br /><br />
+                                  <a href="@Url.Action("Analyze","Analyze")" class="d-none d-sm-inline-block btn  btn-primary shadow-sm">View Analysis <i class="fas fa-arrow-circle-right fa-sm text-white-50"></i></a>
+                        </div>
+                        <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            Results are seamlessly translated into informative, presentation-ready visualizations that make identifying insights – including how an individuals’ performance compares to other participants – easy. These charts are especially helpful for supervisors when advising sales associates, as they allow them to quickly point out both areas of strength and opportunities for improvement.    <br /><br />
+                          <a onclick="showUserPageByRole()" id="visual" href="" class="d-none d-sm-inline-block btn  btn-primary shadow-sm">View Analysis <i class="fas fa-arrow-circle-right fa-sm text-white-50"></i></a>
+                        </div>
+                        <div  class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+                            Refine service offerings and gain greater visibility into frequently used words and phrases across all of your assessments. A built-in sentiment analysis engine further assists by gauging the positivity of each conversation, helping pinpoint sought after services and ideal resolutions. Together, these help us both get a better understanding of what the customer needs, as well as show us what sentiments resonate best among our teams and customer base.        <br /><br />
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <a href="../Analyze/analytic" class="d-none d-sm-inline-block btn  btn-primary shadow-sm">View Analysis <i class="fas fa-arrow-circle-right fa-sm text-white-50"></i></a>
+
+                        </div>
+                    </div>
+                </div>
+                  </div>
+    </div>
+
+    
+    <br />
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script>
+
+    var app = angular.module('analysis', []);
+    app.controller('analysiscontroller', function ($scope, $timeout) {
+       $scope.userRole = localStorage.getItem("Role");
+    });
+    function showUserPageByRole() {
+        var userRole = localStorage.getItem("Role");
+        var a = document.getElementById('visual'); //or grab it by tagname etc
+        if (userRole == 'User') {
+            a.href = "../Analyze/RoleVisualise";
+          
+        }
+        else {
+            a.href = "../Analyze/Visualise";
+        }
+    }
+</script>
+@*<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+<script>
+    var app = angular.module('analysis', []);
+    app.controller('analysiscontroller', function ($scope, $timeout) {
+       
+        var userArray = []
+        var AnalysisData;
+        var grouped;
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+
+        $scope.toggle = function (index) {
+            if ($("#panel_" + index).css("display") == "none") {
+                $("#panel_" + index).css("display", "block");
+                $("#showplus_" + index).css("display", "none");
+                $("#showminus_" + index).css("display", "block");
+            }
+            else {
+                $("#panel_" + index).css("display", "none");
+                $("#showplus_" + index).css("display", "block");
+                $("#showminus_" + index).css("display", "none");
+            }
+           
+        }
+
+        $scope.toggleteam = function () {
+            if ($("#panel").css("display") == "none") {
+                $("#panel").css("display", "block");
+                $("#showplus").css("display", "none");
+                $("#showminus").css("display", "block");
+            }
+            else {
+                $("#panel").css("display", "none");
+                $("#showplus").css("display", "block");
+                $("#showminus").css("display", "none");
+            }
+
+        }
+
+
+        $scope.ready = function () {
+            $scope.datalist = [];
+            $.ajax({
+                url: "https://preptalk.bfmdev1.com/get_users_evaluations_score",
+                type: 'GET',
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    AnalysisData = res;
+                    console.log(res);
+                    var list = [];
+                    if (AnalysisData.length > 0) {
+
+                        for (var i = 0; i < AnalysisData.length; i++) {
+                            var obj = {};
+                            AnalysisData[i].forEach(function (value, idx) {
+                                obj['value' + (idx + 1)] = value
+                            });
+                            list[i] = obj;
+                        }
+                        
+                        currentUser = [];
+                        usrObj = { "name": "", "scoreList": [] }
+                        $timeout(function () {
+                            for (var i = 0; i < list.length; i++) {
+                                if (currentUser.length == 0) {
+                                    usrObj.name = list[i].value1;
+                                    usrObj.scoreList.push(list[i])
+                                    currentUser.push(usrObj.name);
+                                }
+                                else if (currentUser.indexOf(list[i].value1) < 0) {
+                                    userArray.push(usrObj)
+                                    usrObj = { "name": "", "scoreList": [] }
+                                    usrObj.name = list[i].value1;
+                                    usrObj.scoreList.push(list[i])
+                                    currentUser.push(usrObj.name);
+                                }
+                                else {
+                                    usrObj.scoreList.push(list[i]);
+                                }
+
+                            }
+                            userArray.push(usrObj)
+                            // console.log(usrObj);
+                            console.log(userArray);
+                            $scope.datalist = userArray;
+                            console.log("scope:")
+                            console.log($scope.AnalysisList)
+                        });
+                      
+                        console.log(grouped);
+                    }
+                    console.log(list);
+                   
+                }
+            })
+        }
+
+
+
+
+    });
+</script>*@
+
+@*<style>
+    table {
+        margin: 5px;
+    }
+
+    .accordion {
+        /*background-color: #eee;*/
+        background-color: white;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+        border: 1px solid lightgrey;
+        border-radius: 10px;
+    }
+
+        .active, .accordion:hover {
+            background-color: #ccc;
+        }
+
+    .panel {
+        padding: 0 18px;
+        display: none;
+        background-color: white;
+        overflow: hidden;
+    }
+</style>*@
+

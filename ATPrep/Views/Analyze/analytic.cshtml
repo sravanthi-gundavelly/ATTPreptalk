@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewData["Title"] = "Text Analytics";
+}
+
+<link rel="stylesheet" type="text/css" href="~/css/pie.css">
+<link rel="stylesheet" type="text/css" href="~/css/barchart.css">
+@*<script src="~/js/charts/jquery.js"></script>*@
+
+<script src="~/js/charts/bubblechart.js"></script>
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Alaska Retail Excellence Team - Text Analytics</h6>
+        </div>
+        <div class="card-body">
+
+            <div class="row col-md-12">
+                <div class="col-md-6">
+                    <div class="card shadow mb-2">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Conversation Topics</h6>
+                        </div>
+                        <div id="bubbleDisplay" width="300" style="height:400px;">
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow mb-2">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Sample testing of Simulate responses</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-body" id="piecharviz" width="300" style="height:360px;">
+                                <img src="~/images/T-test (002).png" style="height:inherit;" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row col-md-12">
+                <div class="col-md-6">
+                    <div class="card shadow mb-2">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Topic Modelling</h6>
+                        </div>
+                        <div class="card-body">
+                            <img src="~/images/topic-1 (002).png" style="height:400px;" />
+                            @*<svg id="chart" width="300" height="300"></svg>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow mb-2">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Sentiment Analysis</h6>
+                        </div>
+                        <div class="card-body">
+                            <img src="~/images/Sentiment-analysis-chart (002).png" style="height:400px;" />
+                            @*<svg id="chart1" width="300" height="300"></svg>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="../Home/Analysis" class="d-none d-sm-inline-block btn  btn-primary shadow-sm">
+                <i class="fas fa-arrow-circle-left  text-white-50"></i> Go Back
+            </a>
+        </div>
+    </div>
+
+
+    
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+
+<script>
+    $.ajax({
+        url: "https://preptalk.bfmdev1.com/get_corpus_bag_of_words_for_plot",
+        type: 'GET',
+        processData: false,
+        contentType: false,
+        success: function (res) {
+            console.log(res)
+            bubbleDisplay(res);
+        },
+        error: function (xhr, status, error) {
+            console.log('error fetching  data')
+        }
+    });
+
+
+</script>

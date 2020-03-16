@@ -1,0 +1,411 @@
+﻿
+@{
+    ViewData["Title"] = "Loginpage";
+    Layout = null;
+}
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<link href="~/css/StyleSheet.css" rel="stylesheet">
+<script src="~/js/webchat.js"></script>
+<style>
+    a {
+        color: #234e9b;
+        font-weight: bold;
+        font-size: 14px;
+        text-decoration: none;
+    }
+
+    html {
+        overflow: hidden;
+    }
+
+    .copywhite {
+        opacity: 0.7;
+    }
+
+    label, input {
+        transition: all 0.2s;
+        touch-action: manipulation;
+    }
+
+    label {
+        margin-bottom: 1.0rem;
+    }
+
+    .field {
+        display: flex;
+        flex-flow: column-reverse;
+    }
+
+    input {
+        font-size: 1em;
+        border: 0;
+        border-bottom: 1px solid #ccc;
+        font-family: inherit;
+        -webkit-appearance: none;
+        border-radius: 0;
+        padding: 0;
+        cursor: text;
+    }
+
+        input:focus {
+            outline: 0;
+            border-bottom: 1px solid #666;
+        }
+
+    label {
+        text-transform: uppercase;
+        /* letter-spacing: 0.05em; */
+        font-size: 9px;
+        font-weight: 600;
+        color: #646262;
+    }
+
+    input:placeholder-shown + label {
+        cursor: text;
+        max-width: 66.66%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transform-origin: left bottom;
+        transform: translate(0, 1.5rem) scale(1.5);
+    }
+    /**
+    * By default, the placeholder should be transparent. Also, it should
+    * inherit the transition.
+    */
+    ::-webkit-input-placeholder {
+        opacity: 0;
+        transition: inherit;
+    }
+    /**
+    * Show the placeholder when the input is focused.
+    */
+    input:focus::-webkit-input-placeholder {
+        opacity: 1;
+    }
+    /**
+    * When the element is focused, remove the label transform.
+    * Also, do this when the placeholder is _not_ shown, i.e. when
+    * there's something in the input at all.
+    */
+    input:not(:placeholder-shown) + label,
+    input:focus + label {
+        transform: translate(0, 0) scale(1);
+        cursor: pointer;
+        /*border: 2px solid red;*/
+    }
+
+    .form-elegant .font-small {
+        font-size: 0.8rem;
+    }
+
+    .form-elegant .z-depth-1a {
+        -webkit-box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25);
+        box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25);
+    }
+
+    .form-elegant .z-depth-1-half,
+    .form-elegant .btn:hover {
+        -webkit-box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
+        box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
+    }
+
+    .termclass {
+        position: absolute;
+        bottom: 40px;
+        right: 85px;
+        color: white;
+        text-align: center;
+        width: 61%;
+        font-size: 11px;
+        font-family: sans-serif;
+    }
+</style>
+<div class="container-fluid" style="padding:0px">
+    <div class="row">
+        <div class="col-lg-4" style="background-color: #00447e;
+    height: 100vh;">
+            <img src="~/images/ATT-LOGIN-GRAPHIC.png" class="img-fluid" />
+            <div id="copyright-container" class="termclass">
+                <div id="termsOfUse">
+                    <a style="color:white;" data-toggle="modal" data-target="#exampleModalLong" href=""><b>Terms of Use</b></a> |
+                    <a style="color:white;" data-toggle="modal" data-target="#exampleModal" href=""><b>Browser and Display Compatibility</b></a>
+                </div>
+                <div style="color:black;" class="modal fade fontfam" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Terms of Use</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div>
+                                <p>
+                                    Copyright © @DateTime.Now.Year,Pactera Edge. All rights reserved.<br /><br />
+
+                                    The contents hereof are the sole and exclusive property of Pactera Edge  and may not be, for whatsoever purpose, reproduced, stored, copied or archived in any manner whatsoever either in full or in parts without the prior express consent of Pactera Edge.
+
+                                    The contents hereof are purely for internal circulation in Pactera Edge and any access of whatsoever nature of these materials outside the Pactera Edge network is strictly prohibited and will attract legal liability of both civil and criminal nature. Any access of these materials outside the Pactera Edge network amounts to an act of infringement of the intellectual and other proprietary rights of Pactera Edge.
+
+
+
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="color:black;" class="modal fade fontfam" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="exampleModalLongTitle">Browser and Display Compatibility</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                    Preptalk Demo Login page is compatible with the following browsers:<br />
+                                    Mozila Firefox <br />
+                                    Google Chrome 58<br />
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="copyrightMsg">
+                    Copyright ©
+                    2020
+                    Pactera Edge
+                    <br> Entry to this site is restricted to employees and affiliates.
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div style="text-align:center;height:30%">
+                <img src="~/images/Preptalk-logo-with-tagline (003).png" style="margin-top:40px;">
+
+            </div>
+            <div style="height:70%;">
+                <form action="@Url.Action("Login", "Home")" method="post" name="login">
+
+                    <div class="col-md-6 offset-md-3">
+                        <div class="field">
+                            <input type="text" name="UserID" id="UserName" placeholder="User">
+                            <label for="UserName"><i class="fa fa-user-circle" aria-hidden="true" style="padding-right: 6px;"></i>UserName</label>
+                        </div>
+                        <br />
+                        <div class="field">
+                            <input type="password" name="Password" id="Password" placeholder="******">
+                            <label for="Password"><i class="fa fa-user-circle" aria-hidden="true" style="padding-right: 6px;"></i>Password</label>
+                        </div>
+                        <br /><br />
+                        <div class="col-md-12 text-center ">
+                            <button id="loginBtn" class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
+                        </div>
+                    </div>
+
+                </form>
+
+                <div style="text-align:center;">
+                    <a style="" href="" data-toggle="modal" data-target="#forgot">Forgot Username/Password?</a>
+                </div>
+
+                <div style="color:black;" class="modal fade fontfam" id="forgot" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="exampleModalLongTitle">Forgot Username/Password</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <img src="~/images/Att8447.PNG" class="img-fluid" style="width:100%;" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="botclick" style="position: fixed;bottom: 5px;right:5px;">
+                    <a type="button" onclick="chatDemo()"><img style="height:100px;" src="~/images/bot1.png" /></a>
+                </div>
+                <div id="showbot" style="display:none;">
+                    <div style="position:fixed;bottom:0;height:80%;text-align: initial;right:0;width:530px;font-size:16px;top:10;" id="bot">
+
+                    </div>
+                    <div style="position:fixed;bottom:0;background:#3d7ea4; height:20%;text-align: initial;right:0;width:530px;font-size:16px;">
+                        The AT&T Signature Program saves members up to $10/mo. per line on our Unlimited EliteSM plan, and exclusive discounts on accessories and upgrades.
+                    </div>
+
+                </div>
+            
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<script>
+    localStorage.clear();
+    function chatDemo() {
+
+        var user = localStorage.getItem("name");
+        if ($("#showbot").css("display") == "none") {
+            $("#showbot").css("display", "block");
+
+            const styleOptions = {
+
+                // Colors
+                bubbleBackground: 'rgba(217, 217, 217, 0.15)',
+                bubbleFromUserBackground: 'rgba(0, 150, 130, 1)',
+                bubbleFromUserTextColor: 'white',
+                bubbleMaxWidth: 600, // maximum width of text message
+
+                // Avatar
+                //avatarSize: 100,
+                botAvatarImage: '/images/bot.png',
+                botAvatarInitials: 'Bt', // doesn't seem to work
+                // userAvatarImage: '/images/' + localStorage.getItem("userimage"),
+                // userAvatarInitials: "User", // doesn't seem to work
+
+                // Send box
+                hideSendBox: false,
+                hideUploadButton: false, // doesn't seem to work
+                sendBoxButtonColor: '#767676',
+                sendBoxButtonColorOnDisabled: '#CCC',
+                sendBoxButtonColorOnFocus: '#333',
+                sendBoxButtonColorOnHover: '#333',
+                sendBoxHeight: 40,
+
+                // Suggested actions
+                suggestedActionTextColor: 'black',
+                suggestedActionBorder: `solid 2px #009682`,
+                suggestedActionHeight: 30,
+
+            };
+
+            const store = window.WebChat.createStore({}, ({ dispatch }) => next => action => {
+                if (action.type === 'DIRECT_LINE/CONNECT_FULFILLED') {
+                    // When we receive DIRECT_LINE/CONNECT_FULFILLED action, we will send an event activity using WEB_CHAT/SEND_EVENT
+                    dispatch({
+                        type: 'WEB_CHAT/SEND_EVENT',
+                        payload: {
+                            name: 'webchat/join',
+                            value: { language: window.navigator.language }
+                        }
+                    });
+                }
+
+                //if (action.type === 'DIRECT_LINE/INCOMING_ACTIVITY'
+                //    && action.payload.activity.attachments
+                //    && 0 in action.payload.activity.attachments) {
+                //    let attachments = action.payload.activity.attachments;
+                //    if ('content' in attachments[0] ) {
+                //     //   this.setState(() => ({
+                //        styleOptions: {
+                //            userAvatarImage: attachments[0].Name
+                //        }
+                //           // avatarState: true
+                //      //  }));
+                //    }
+                //}
+                return next(action);
+            });
+
+            window.WebChat.renderWebChat(
+                {
+                    directLine: window.WebChat.createDirectLine({
+                        token: '8Z_Va6AmYMQ.PpFYBmH5u4y0JAGePQTDJetSPTMydbdcC6c7QTzkA-o',
+                    }),
+                    userID: user,
+                    userName: user,
+                    chatTitle: "ChatBot",
+                    store,
+                    styleOptions
+
+                },
+                document.getElementById('bot'))
+
+            $("#bot").css("border", "1px solid grey");
+            document.getElementsByClassName("css-mfy564")[1].innerHTML = "<h5 style='background: #1c447f;color:white; height: 45px;padding: 10px;'><img style='height:20px;' src='../images/prepstatic.JPG'/><span style='float:right;color:white;cursor:pointer;' onclick='closechat()'>×</span></h5>";
+
+            //  document.getElementsByClassName("css-mfy564")[1].innerHTML = "<h5 style='background: #1c447f;color:white; height: 45px;padding: 10px;'>PrepTalk Chat<img style='height:20px;' src='../images/prepstatic.JPG'/><span style='float:right;color:white;cursor:pointer;' onclick='closechat()'>×</span></h5>";
+            // $(".css-mfy564 span").innerText = "Hello";
+        }
+        else {
+            $("#showbot").css("display", "none");
+        }
+    }
+    function closechat() {
+        $("#showbot").css("display", "none");
+        $.ajax({
+            url: "Home/update",
+            method: "post",
+            success: function (data) {
+                // alert(data);
+            }
+        })
+        //if ($("#showbot").css("display") == "none") {
+        //    $("#showbot").css("display", "block");
+        //}
+        //else {
+        //    $("#showbot").css("display", "none");
+        //}
+    }
+</script>
+<script>
+    var input = document.getElementById("UserName");
+    input.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("loginBtn").click();
+        }
+    });
+
+    var pas = document.getElementById("Password");
+    pas.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("loginBtn").click();
+        }
+    });
+
+    @*localStorage.setItem("name", "@ViewBag.UserName");
+
+        function chatDemo() {
+
+            BotChat.App({
+                directLine: {
+                    secret: 'g_s7t7Tyw5w.YGCk-8BhARFERM8MSxcdGTXQdFiIU8y1vS6mtH4Esc4'
+                },
+                user: { id: localStorage.getItem("name") },
+                bot: { id: 'botid' },
+                resize: 'detect'
+            }, document.getElementById("bot"));
+        }*@
+
+</script>
+
+<script>
+
+
+</script>
+
+
