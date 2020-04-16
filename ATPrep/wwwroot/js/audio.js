@@ -48,9 +48,16 @@ app.controller('myCtrl', function ($scope, $timeout) {
     isparentquestion = 0;
 
     var isTestEnd = 0;
+
+
+    var socket = io.connect('http://preptalk-gi.bfmdev1.com:5000/');
+    socket.on('connect', function () {
+        console.log('Websocket connected!');
+    });
+       
     function getSessionID() {
         $.ajax({
-            url: Url + "get_session_id?userid=" + localStorage.getItem("UserID"),
+            url: Url + "get_session_id?userid=" + localStorage.getItem("UserID") +"&channel='voice'",
             type: 'GET',
             contentType: false,
             processData: false,
@@ -122,13 +129,6 @@ app.controller('myCtrl', function ($scope, $timeout) {
             repeattext = text;
         }
 
-        //botui.message.bot({
-        //    content: text,
-        //    user: "Jessica",
-        //    loading: true,
-        //    photo: true,
-        //    delay: 200,
-        //})
         $('#startAudio').animate({
             scrollTop: $('#startAudio')[0].scrollHeight
         }, 500);
@@ -232,7 +232,20 @@ app.controller('myCtrl', function ($scope, $timeout) {
 
     }
 
+    function sendstreamdata(audiostream) {
+        ++speechTextReqCount;
+        socket.emit('create', { "filedata": audiostream, "request_no": speechTextReqCount });
+    }
+    function readstreamdata() {
+        if (mediaRecorder.state != 'inactive' && isValidByteStream == true) {
+            mediaRecorder.requestData();
+        }
+    }
 
+    socket.on('on_speech_text', function (msg) {
+        OnSpeechToText(msg);
+    });
+          
     function sendfile(blob) {
         ++speechTextReqCount;
         var data = new FormData();
@@ -250,124 +263,7 @@ app.controller('myCtrl', function ($scope, $timeout) {
             contentType: false,
             processData: false,
             success: function (data) {
-                --isspeechToTextProcessingCnt;
-                data.requestno = Number(data.requestno);
-                var uname = localStorage.getItem("UserName").charAt(0).toUpperCase() + localStorage.getItem("UserName").slice(1);
-
-                //initial request
-                if (speechtextorder.length == 0) {
-                    if (data.requestno != 0) {
-                        for (var i = 0; i <= data.requestno; i++) {
-                            speechtextorder.push(-1)
-                            speechtextordermsgs.push("")
-                        }
-                        speechtextorder[data.requestno] = 0;
-                        speechtextordermsgs[data.requestno] = data.text;
-                        return;
-                    }
-                    else {
-                        speechtextorder.push(1);
-                        speechtextordermsgs.push(data.text);
-
-                        if (data.text != '' && data.text != null && data.text != undefined) {
-                            botui.message.human({
-                                content: data.text,
-                                user: uname,
-                                loading: true,
-                                photo: '/images/' + localStorage.getItem("userimage"),
-                                delay: 200,
-                            })
-                        }
-                    }
-                }
-                else {
-                    // for new requests and 
-                    if (data.requestno + 1 > speechtextorder.length) {
-                        for (var i = speechtextorder.length; i < data.requestno + 1; i++) {
-                            speechtextorder.push(-1)
-                            speechtextordermsgs.push("")
-                        }
-                        speechtextorder[data.requestno] = 0;
-                        speechtextordermsgs[data.requestno] = data.text;
-
-                        for (var i = 0; i < speechtextorder.length; i++) {
-                            if (speechtextorder[i] == 0) {
-                                speechtextorder[i] = 1;
-
-                                if (speechtextordermsgs[i] != '' && speechtextordermsgs[i] != null && speechtextordermsgs[i] != undefined) {
-                                    botui.message.human({
-                                        content: speechtextordermsgs[i],
-                                        user: uname,
-                                        loading: true,
-                                        photo: '/images/' + localStorage.getItem("userimage"),
-                                        delay: 200,
-                                    })
-                                }
-
-                            }
-                            else if (speechtextorder[i] == -1) {
-                                break;
-                            }
-                        }
-                    }
-                    else if (data.requestno + 1 < speechtextorder.length) {
-                        speechtextorder[data.requestno] = 0
-                        speechtextordermsgs[data.requestno] = data.text
-
-                        for (var i = 0; i < speechtextorder.length; i++) {
-                            if (speechtextorder[i] == 0) {
-                                speechtextorder[i] = 1;
-
-                                if (speechtextordermsgs[i] != '' && speechtextordermsgs[i] != null && speechtextordermsgs[i] != undefined) {
-                                    botui.message.human({
-                                        content: speechtextordermsgs[i],
-                                        user: uname,
-                                        loading: true,
-                                        photo: '/images/' + localStorage.getItem("userimage"),
-                                        delay: 200,
-                                    })
-                                }
-
-                            }
-                            else if (speechtextorder[i] == -1) {
-                                break;
-                            }
-                        }
-
-                    }
-                    else if (data.requestno + 1 == speechtextorder.length) {
-                        speechtextorder[data.requestno] = 0
-                        speechtextordermsgs[data.requestno] = data.text
-
-                        if (data.text != '' && data.text != null && data.text != undefined) {
-                            botui.message.human({
-                                content: data.text,
-                                user: uname,
-                                loading: true,
-                                photo: '/images/' + localStorage.getItem("userimage"),
-                                delay: 200,
-                            })
-                        }
-                    }
-                }
-
-                if (data.text != "") {
-
-                    usertext = usertext + '@' + data.text;
-                    //if (uname.startsWith("Je")) {
-                    //botui.message.human({
-                    //    content: data.text,
-                    //    user: uname,
-                    //    loading: true,
-                    //    photo: '/images/' + localStorage.getItem("userimage"),
-                    //    //   photo_path: '/images/callingperson_small.png',
-
-                    //    delay: 200,
-                    //})
-                }
-                $('#startAudio').animate({
-                    scrollTop: $('#startAudio')[0].scrollHeight
-                }, 500);
+                OnSpeechToText(data);
             },
             error: function (data) {
                 --isspeechToTextProcessingCnt;
@@ -376,7 +272,117 @@ app.controller('myCtrl', function ($scope, $timeout) {
         });
     }
 
+    function OnSpeechToText(data) {
+        --isspeechToTextProcessingCnt;
+        data.requestno = Number(data.requestno);
+        var uname = localStorage.getItem("UserName").charAt(0).toUpperCase() + localStorage.getItem("UserName").slice(1);
+
+        //initial request
+        if (speechtextorder.length == 0) {
+            if (data.requestno != 0) {
+                for (var i = 0; i <= data.requestno; i++) {
+                    speechtextorder.push(-1)
+                    speechtextordermsgs.push("")
+                }
+                speechtextorder[data.requestno] = 0;
+                speechtextordermsgs[data.requestno] = data.text;
+                return;
+            }
+            else {
+                speechtextorder.push(1);
+                speechtextordermsgs.push(data.text);
+
+                if (data.text != '' && data.text != null && data.text != undefined) {
+                    botui.message.human({
+                        content: data.text,
+                        user: uname,
+                        loading: true,
+                        photo: '/images/' + localStorage.getItem("userimage"),
+                        delay: 200,
+                    })
+                }
+            }
+        }
+        else {
+            // for new requests and 
+            if (data.requestno + 1 > speechtextorder.length) {
+                for (var i = speechtextorder.length; i < data.requestno + 1; i++) {
+                    speechtextorder.push(-1)
+                    speechtextordermsgs.push("")
+                }
+                speechtextorder[data.requestno] = 0;
+                speechtextordermsgs[data.requestno] = data.text;
+
+                for (var i = 0; i < speechtextorder.length; i++) {
+                    if (speechtextorder[i] == 0) {
+                        speechtextorder[i] = 1;
+
+                        if (speechtextordermsgs[i] != '' && speechtextordermsgs[i] != null && speechtextordermsgs[i] != undefined) {
+                            botui.message.human({
+                                content: speechtextordermsgs[i],
+                                user: uname,
+                                loading: true,
+                                photo: '/images/' + localStorage.getItem("userimage"),
+                                delay: 200,
+                            })
+                        }
+
+                    }
+                    else if (speechtextorder[i] == -1) {
+                        break;
+                    }
+                }
+            }
+            else if (data.requestno + 1 < speechtextorder.length) {
+                speechtextorder[data.requestno] = 0
+                speechtextordermsgs[data.requestno] = data.text
+
+                for (var i = 0; i < speechtextorder.length; i++) {
+                    if (speechtextorder[i] == 0) {
+                        speechtextorder[i] = 1;
+
+                        if (speechtextordermsgs[i] != '' && speechtextordermsgs[i] != null && speechtextordermsgs[i] != undefined) {
+                            botui.message.human({
+                                content: speechtextordermsgs[i],
+                                user: uname,
+                                loading: true,
+                                photo: '/images/' + localStorage.getItem("userimage"),
+                                delay: 200,
+                            })
+                        }
+
+                    }
+                    else if (speechtextorder[i] == -1) {
+                        break;
+                    }
+                }
+
+            }
+            else if (data.requestno + 1 == speechtextorder.length) {
+                speechtextorder[data.requestno] = 0
+                speechtextordermsgs[data.requestno] = data.text
+
+                if (data.text != '' && data.text != null && data.text != undefined) {
+                    botui.message.human({
+                        content: data.text,
+                        user: uname,
+                        loading: true,
+                        photo: '/images/' + localStorage.getItem("userimage"),
+                        delay: 200,
+                    })
+                }
+            }
+        }
+
+        if (data.text != "") {
+            usertext = usertext + '@' + data.text;
+        }
+        $('#startAudio').animate({
+            scrollTop: $('#startAudio')[0].scrollHeight
+        }, 500);
+    }
    
+
 
     $scope.evaluate = function () {
         isTextResponseGenerating = true;
@@ -394,14 +400,14 @@ app.controller('myCtrl', function ($scope, $timeout) {
                 //$timeout(function () {
 
                 for (var i = 0; i < data.length; i++) {
-                    if (data[i].tscore >= 7)
+                    if (data[i].tscore >= 8)
                         data[i].tclass = "green"
                     else if (data[i].tscore >= 5)
                         data[i].tclass = "orange"
                     else if (data[i].tscore < 5)
                         data[i].tclass = "red"
 
-                    if (data[i].escore >= 7)
+                    if (data[i].escore >= 8)
                         data[i].eclass = "green"
                     else if (data[i].escore >= 5)
                         data[i].eclass = "orange"
@@ -409,11 +415,11 @@ app.controller('myCtrl', function ($scope, $timeout) {
                         data[i].eclass = "red"
 
 
-                    if (parseFloat(data[i].escore) + parseFloat(data[i].tscore) >= 17)
+                    if (parseFloat(data[i].escore) + parseFloat(data[i].tscore) >= 16)
                         data[i].teclass = "green"
-                    else if (parseFloat(data[i].escore) + parseFloat(data[i].tscore) >= 12)
+                    else if (parseFloat(data[i].escore) + parseFloat(data[i].tscore) >= 10)
                         data[i].teclass = "orange"
-                    else if (parseFloat(data[i].escore) + parseFloat(data[i].tscore) < 12)
+                    else if (parseFloat(data[i].escore) + parseFloat(data[i].tscore) < 10)
                         data[i].teclass = "red"
                 }
 
@@ -455,6 +461,29 @@ app.controller('myCtrl', function ($scope, $timeout) {
         $("#startbutton").hide();
     }
 
+    var convertFloat32ToInt16 = function (buffer) {
+         ////console.log(buffer);
+        //var l = buffer.length;
+        //var point = Math.floor(l / 3);
+        //var buf = new Int16Array(point);
+        //for (var x = l; x > 0;) {
+        //    var average = (buffer[x]);// + buffer[x - 1] + buffer[x - 2]) / 3;
+        //    //console.log(average * 0x7fff);
+        //    //console.log(average);
+        //    //buf[point] = average * 0x7fff;
+        //    buf[point] = Math.round(Math.abs(average * 0x7fff));
+        //    //buf[point] = Math.round(Math.abs(average)) * 0x7fff;
+        //    point -= 1;
+        //    x -= 1;
+        //}
+        ////return buf.buffer;
+        ////console.log('called')
+        var wav = audioBufferToWav(buffer);
+        buf = [new Uint8Array(wav)];
+        return buf;
+
+    }
+
     $scope.StartAssessment = function () {
 
         $("#startAudio").show();
@@ -478,30 +507,47 @@ app.controller('myCtrl', function ($scope, $timeout) {
 
                 mediaRecorder = new MediaRecorder(stream);
 
+
+
                 mediaRecorder.ondataavailable = function (e) {
-                    chunks = []
-                    chunks.push(e.data);
-
-                    if (isTextResponseGenerating == true)
+                    console.log('done')
+                    tempChunk = [];
+                    if (e.data.size <= 0)
                         return;
+                    //tempChunk.push(e.data);
 
-                    var blob = new Blob(chunks, { 'type': 'audio/webm; codecs=opus' });
-                    var fileReader = new FileReader();
-                    fileReader.onload = function (event) {
-                        arrayBuffer = event.target.result;
-                    };
-                    fileReader.readAsArrayBuffer(blob);
-                    fileReader.onloadend = function (d) {
-                        audioContext.decodeAudioData(
-                            fileReader.result,
-                            function (buffer) {
-                                var wav = audioBufferToWav(buffer);
 
-                                sendfile(new Blob([new Uint8Array(wav)]));
-                            },
-                            function (e) { console.log(e); }
-                        );
-                    };
+                    //sendstreamdata(chunks);
+                    //return
+                    if (isTextResponseGenerating === true)
+                        return;
+                    ////console.log(typeof e.data)
+                    //sendstreamdata(stream);
+                    //return
+                    try {
+                        var blob = new Blob([e.data], { 'type': 'audio/webm; codecs=opus' });
+                        var fileReader = new FileReader();
+                        fileReader.onload = function (event) {
+                            arrayBuffer = event.target.result;
+                        };
+                        fileReader.readAsArrayBuffer(blob);
+                        fileReader.onloadend = function (d) {
+                            audioContext.decodeAudioData(
+                                fileReader.result,
+                                function (buffer) {
+                                    var wav = audioBufferToWav(buffer);
+
+                                    //sendstreamdata(new Blob([new Uint8Array(wav)]));
+                                    sendstreamdata([new Uint8Array(wav)]);
+                                    //sendstreamdata(blob);
+                                },
+                                function (e) { console.log(e); }
+                            );
+                        };
+                    }
+                    catch (err) {
+                        console.log(err);
+                    }
                 }
                 microphone.connect(analyser);
                 analyser.connect(javascriptNode);
@@ -538,46 +584,32 @@ app.controller('myCtrl', function ($scope, $timeout) {
                             }
                         }
                         if (Math.round(average) > 20 && start == 0) {
+
+                            isValidByteStream = true;
                             time = new Date();
                             start = time.getTime()
                             silenceStart = 0;
                         }
                         else if (start > 0 && Math.round(average) <= 5) {
+                            isValidByteStream = false;
                             if (mediaRecorder.state == "inactive") {
                                 return;
                             }
-
                             time = new Date();
                             end = time.getTime()
-                            //console.log(start, end, (Math.abs((start - end)) / 1000))
-                            //if ((Math.abs((start - end)) / 1000) > 1) {
                             ++isspeechToTextProcessingCnt;
                             start = 0;
                             silenceStart = end;
                             end = 0
-                            console.log('inside')
-
-                            //if (mediaRecorder.state == "inactive") {
-                            //    --isspeechToTextProcessingCnt;
-                            //    return;
-
-                            //}
+                            console.log('inside');
+                            console.log('stopped');
                             mediaRecorder.stop();
                             mediaRecorder.start();
-
-                            //}
                         }
-
                     }
                 }
-
             })
             .catch(function (err) {
-                /* handle the error */
             });
     }
-
-
-
-
 });

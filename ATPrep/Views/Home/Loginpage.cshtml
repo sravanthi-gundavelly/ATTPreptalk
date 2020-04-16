@@ -11,6 +11,10 @@
 <link href="~/css/StyleSheet.css" rel="stylesheet">
 <script src="~/js/webchat.js"></script>
 <style>
+    html{
+        overflow-y:scroll;
+        overflow-x:hidden;
+    }
     a {
         color: #234e9b;
         font-weight: bold;
@@ -18,9 +22,9 @@
         text-decoration: none;
     }
 
-    html {
+    /*html {
         overflow: hidden;
-    }
+    }*/
 
     .copywhite {
         opacity: 0.7;
@@ -34,7 +38,10 @@
     label {
         margin-bottom: 1.0rem;
     }
-
+    p {
+        padding: 10px;
+        font-size: 14px;
+    }
     .field {
         display: flex;
         flex-flow: column-reverse;
@@ -127,13 +134,19 @@
 </style>
 <div class="container-fluid" style="padding:0px">
     <div class="row">
-        <div class="col-lg-4" style="background-color: #00447e;
-    height: 100vh;">
-            <img src="~/images/ATT-LOGIN-GRAPHIC.png" class="img-fluid" />
-            <div id="copyright-container" class="termclass">
-                <div id="termsOfUse">
+        <div class="col-lg-4" >
+            <div id="copyright-container">
+                <img src="~/images/Website-image (002).png" class="img-fluid" style="height:100vh;" />
+
+                <div id="termsOfUse" class="termclass">
                     <a style="color:white;" data-toggle="modal" data-target="#exampleModalLong" href=""><b>Terms of Use</b></a> |
                     <a style="color:white;" data-toggle="modal" data-target="#exampleModal" href=""><b>Browser and Display Compatibility</b></a>
+                    <div id="copyrightMsg">
+                        Copyright ©
+                        2020
+                        Pactera Edge
+                        <br> Entry to this site is restricted to employees and affiliates.
+                    </div>
                 </div>
                 <div style="color:black;" class="modal fade fontfam" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -185,12 +198,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="copyrightMsg">
-                    Copyright ©
-                    2020
-                    Pactera Edge
-                    <br> Entry to this site is restricted to employees and affiliates.
-                </div>
+              
             </div>
         </div>
 
@@ -247,15 +255,15 @@
                     <a type="button" onclick="chatDemo()"><img style="height:100px;" src="~/images/bot1.png" /></a>
                 </div>
                 <div id="showbot" style="display:none;">
-                    <div style="position:fixed;bottom:0;height:80%;text-align: initial;right:0;width:530px;font-size:16px;top:10;" id="bot">
+                    <div style="position:fixed;bottom:0;height:100%;text-align: initial;right:0;width:530px;font-size:16px;top:10;" id="bot">
 
                     </div>
-                    <div style="position:fixed;bottom:0;background:#3d7ea4; height:20%;text-align: initial;right:0;width:530px;font-size:16px;">
+                    @*<div style="position:fixed;bottom:0;background:#3d7ea4; height:20%;text-align: initial;right:0;width:530px;font-size:16px;">
                         The AT&T Signature Program saves members up to $10/mo. per line on our Unlimited EliteSM plan, and exclusive discounts on accessories and upgrades.
-                    </div>
+                    </div>*@
 
                 </div>
-            
+
             </div>
 
         </div>
@@ -332,7 +340,7 @@
             window.WebChat.renderWebChat(
                 {
                     directLine: window.WebChat.createDirectLine({
-                        token: '8Z_Va6AmYMQ.PpFYBmH5u4y0JAGePQTDJetSPTMydbdcC6c7QTzkA-o',
+                        token: '8U6FceURryU.gitrDuIO5rsUKlESplgvOf39hD7J6wpVdtZ1KBvAWYE',
                     }),
                     userID: user,
                     userName: user,
@@ -344,7 +352,9 @@
                 document.getElementById('bot'))
 
             $("#bot").css("border", "1px solid grey");
-            document.getElementsByClassName("css-mfy564")[1].innerHTML = "<h5 style='background: #1c447f;color:white; height: 45px;padding: 10px;'><img style='height:20px;' src='../images/prepstatic.JPG'/><span style='float:right;color:white;cursor:pointer;' onclick='closechat()'>×</span></h5>";
+            //document.getElementsByClassName("css-mfy564")[1].innerHTML = "<h5 style='background: #1c447f;color:white; height: 45px;padding: 10px;'><img style='height:20px;' src='../images/prepstatic.JPG'/>PrepTalk for Practo-Protect<span style='float:right;color:white;cursor:pointer;' onclick='closechat()'>×</span></h5>";
+            document.getElementsByClassName("css-mfy564")[1].innerHTML = "<h5 style='background: #1c447f;color:#e9ecef;; height: 45px;padding: 10px;'>PrepTalk for EDGE-Protect<span style='float:right;color:#e9ecef;;cursor:pointer;' onclick='closechat()'>×</span></h5>";
+
 
             //  document.getElementsByClassName("css-mfy564")[1].innerHTML = "<h5 style='background: #1c447f;color:white; height: 45px;padding: 10px;'>PrepTalk Chat<img style='height:20px;' src='../images/prepstatic.JPG'/><span style='float:right;color:white;cursor:pointer;' onclick='closechat()'>×</span></h5>";
             // $(".css-mfy564 span").innerText = "Hello";

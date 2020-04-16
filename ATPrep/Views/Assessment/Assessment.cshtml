@@ -50,23 +50,17 @@
             </div>
 
         </div>
-        @*<div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Instructions</h6>
-                </div>
-                <div class="card-body">
-                    To start the assessment please click on start button
-                </div>
-            </div>*@
+
         <div class="col-sm-10" id="startbutton" style="margin-top:20px;">
-            <button ng-click="displaystart('ATandTGeneralQuestions')" style="width:300px;height:360px;border:1px solid" class="d-none d-sm-inline-block btn btn-sm  shadow-sm">
-                @*General Customer Support*@
-                <img width="100%" src="~/images/general.jpg.png" />
+            <button ng-click="displaystart('InsuranceUpsell')" style="width:300px;height:370px;border:1px solid" class="d-none d-sm-inline-block btn btn-sm  shadow-sm">
+                <img class="img-fluid" src="~/images/resizeinsurance.jpg" />
                 <p>
                     <br />
-                    <b class="text-primary">General Support Enquiry & Basic Troubleshooting:</b><br />
-                    Information on Plans and general tech support<br />
-                    AT&T Customer Support Training Team<br />
+                    <b class="text-primary">
+                        <br />
+                        Upselling Insurance Products
+                    </b><br />
+                    Using it to increase customer value<br /><br />
                     <span style="color:orange;" class="fa fa-star checked"></span>
                     <span style="color:orange;" class="fa fa-star checked"></span>
                     <span style="color:orange;" class="fa fa-star checked"></span>
@@ -77,21 +71,22 @@
                 </p>
             </button>
 
-            <button ng-click="displaystart('product')" style="width:300px;height:360px;border:1px solid" class="d-none d-sm-inline-block btn btn-sm  shadow-sm">
-                @*U-Verse Product Support*@
-                <img width="100%" src="~/images/uverse.jpg" />
+            <button ng-click="displaystart('product')" style="width:300px;height:370px;border:1px solid" class="d-none d-sm-inline-block btn btn-sm  shadow-sm">
+                <img class="img-fluid" src="~/images/Actuarial_Sciences.png" />
                 <p>
                     <br />
-                    <b class="text-primary">Learn to support the U-verse product:</b><br />
-                    Technical dive into features & pricing<br /><br />
-                    AT&T U-verse Product Team<br />
+                    <b class="text-primary">
+                        <br />
+                        Basics of Actuarial Sciences
+                    </b><br />
+                    Understand Actuarial Sciences <br /><br />
                     <span style="color:orange;" class="fa fa-star checked"></span>
                     <span style="color:orange;" class="fa fa-star checked"></span>
                     <span style="color:orange;" class="fa fa-star checked"></span>
                     <span style="color:orange;" class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
+                    <span style="color:orange;" class="fa fa-star checked"></span>
                     <br />
-                    455/650 Associates Taken
+                    795/955 Associates Taken
                 </p>
             </button>
             <div>
@@ -99,9 +94,7 @@
                 <button style="float:right;" class="d-none d-sm-inline-block btn btn-primary shadow-sm">
                     More simulation courses >>
                 </button>
-
             </div>
-
         </div>
 
         <div class="row">
@@ -242,5 +235,5 @@
 <script src="~/js/vue/vue.min.js"></script>
 <script src="~/js/audio.js"></script>
 <script src="~/js/index.js"></script>
-@*<script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/botui/build/botui.js"></script>*@
+<script src="~/js/socket.js"></script>
+

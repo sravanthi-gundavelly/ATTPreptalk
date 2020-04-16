@@ -14,7 +14,7 @@
   
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary" ng-if="Role != 'User'">Alaska Retail Excellence Team - Simple Table Analytics</h6>
+            <h6 class="m-0 font-weight-bold text-primary" ng-if="Role != 'User'">Alaska GI Advisor Team - Simple Table Analytics</h6>
             <h6 class="m-0 font-weight-bold text-primary"  ng-if="Role == 'User'">{{username}} - Simple Table Analytics</h6>
         </div>
         <div class="card-body">
@@ -26,16 +26,16 @@
                     <tr>
                         <td>
                             <span>Tscore/Sscore </span><br />
-                            <span><i class="fas fa-square" style="color:#498e49;"> </i>  >= 7</span>&nbsp;
+                            <span><i class="fas fa-square" style="color:#498e49;"> </i>  >= 8</span>&nbsp;
                             <span><i class="fas fa-square" style="color:orange;"> </i> >= 5</span>&nbsp;
                             <span><i class="fas fa-square" style="color:#f14b4b;"> </i> < 5</span><br />
                         </td>
                         <td>
 
                             <span>TotalScore </span><br />
-                            <span><i class="fas fa-square" style="color:#498e49;"> </i>  >= 17</span>&nbsp;
-                            <span><i class="fas fa-square" style="color:orange;"> </i> >= 12</span>&nbsp;
-                            <span><i class="fas fa-square" style="color:#f14b4b;"> </i> < 12</span>
+                            <span><i class="fas fa-square" style="color:#498e49;"> </i>  >= 16</span>&nbsp;
+                            <span><i class="fas fa-square" style="color:orange;"> </i> >= 10</span>&nbsp;
+                            <span><i class="fas fa-square" style="color:#f14b4b;"> </i> < 10</span>
                         </td>
                     </tr>
                 </table>
@@ -209,14 +209,14 @@
                                 //if (userArray[i].name != 'TeamScore') {
                                     for (var j = 0; j < userArray[i].scoreList.length; j++) {
                                         var data = userArray[i].scoreList[j];
-                                        if (data.tscore >= 7)
+                                        if (data.tscore >= 8)
                                             data.tclass = "green"
                                         else if (data.tscore >= 5)
                                             data.tclass = "orange"
                                         else if (data.tscore < 5)
                                             data.tclass = "red"
 
-                                        if (data.escore >= 7)
+                                        if (data.escore >= 8)
                                             data.eclass = "green"
                                         else if (data.escore >= 5)
                                             data.eclass = "orange"
@@ -224,11 +224,11 @@
                                             data.eclass = "red"
 
 
-                                        if (parseFloat(data.escore) + parseFloat(data.tscore) >= 17)
+                                        if (parseFloat(data.escore) + parseFloat(data.tscore) >= 16)
                                             data.teclass = "green"
-                                        else if (parseFloat(data.escore) + parseFloat(data.tscore) >= 12)
+                                        else if (parseFloat(data.escore) + parseFloat(data.tscore) >= 10)
                                             data.teclass = "orange"
-                                        else if (0 <= (parseFloat(data.escore) + parseFloat(data.tscore)) < 12)
+                                        else if (0 <= (parseFloat(data.escore) + parseFloat(data.tscore)) < 10)
                                             data.teclass = "red"
                                   //  }
                                 }
@@ -256,7 +256,7 @@
                                     var cssTClass;
                                     var cssEClass;
                                     var cssTEClass;
-                                    if (totalAvgTScore >= 7) {
+                                    if (totalAvgTScore >= 8) {
                                         cssTClass = "green";
                                     }
                                     else if (totalAvgTScore >= 5) {
@@ -266,7 +266,7 @@
                                         cssTClass = "red";
                                     }
 
-                                    if (totalAvgEScore >= 7) {
+                                    if (totalAvgEScore >= 8) {
                                         cssEClass = "green";
                                     }
                                     else if (totalAvgEScore >= 5) {
@@ -277,11 +277,11 @@
                                     }
 
 
-                                    if (parseFloat(totalAvgTScore) + parseFloat(totalAvgEScore) >= 17)
+                                    if (parseFloat(totalAvgTScore) + parseFloat(totalAvgEScore) >= 16)
                                         cssTEClass = "green"
-                                    else if (parseFloat(totalAvgTScore) + parseFloat(totalAvgEScore) >= 12)
+                                    else if (parseFloat(totalAvgTScore) + parseFloat(totalAvgEScore) >= 10)
                                         cssTEClass = "orange"
-                                    else if (0 <= (parseFloat(totalAvgTScore) + parseFloat(totalAvgEScore)) < 12)
+                                    else if (0 <= (parseFloat(totalAvgTScore) + parseFloat(totalAvgEScore)) < 10)
                                         cssTEClass = "red"
                                     userArray[i].scoreList.push({
                                         createddate: 'Average Score',

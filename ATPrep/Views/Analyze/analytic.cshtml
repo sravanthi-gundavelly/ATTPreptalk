@@ -12,7 +12,15 @@
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Alaska Retail Excellence Team - Text Analytics</h6>
+            <h6 class="m-0 font-weight-bold text-primary">
+                Alaska GI Advisor Excellence Team - Text Analytics 
+                <span style="float:right;">
+                    <a target="_blank" href="https://app.powerbi.com/groups/me/reports/b9b5c325-e753-4c2a-84a7-6baddc32f474/ReportSection" class="d-none d-sm-inline-block btn  btn-primary shadow-sm">
+                        Rich PowerBI Dashboards
+                    </a>
+                </span>
+            </h6>
+
         </div>
         <div class="card-body">
 
@@ -22,7 +30,7 @@
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Conversation Topics</h6>
                         </div>
-                        <div id="bubbleDisplay" width="300" style="height:400px;">
+                        <div id="bubbleDisplay" width="300" style="height:400px;" class="img-fluid">
 
                         </div>
 
@@ -35,7 +43,7 @@
                         </div>
                         <div class="card-body">
                             <div class="card-body" id="piecharviz" width="300" style="height:360px;">
-                                <img src="~/images/T-test (002).png" style="height:inherit;" />
+                                <img src="~/images/Pusers.JPG" style="height:inherit;" class="img-fluid"/>
                             </div>
 
                         </div>
@@ -50,7 +58,7 @@
                             <h6 class="m-0 font-weight-bold text-primary">Topic Modelling</h6>
                         </div>
                         <div class="card-body">
-                            <img src="~/images/topic-1 (002).png" style="height:400px;" />
+                            <img src="~/images/topic-1 (002).png" style="height:400px;" class="img-fluid" />
                             @*<svg id="chart" width="300" height="300"></svg>*@
                         </div>
                     </div>
@@ -61,7 +69,7 @@
                             <h6 class="m-0 font-weight-bold text-primary">Sentiment Analysis</h6>
                         </div>
                         <div class="card-body">
-                            <img src="~/images/Sentiment-analysis-chart (002).png" style="height:400px;" />
+                            <img src="~/images/Sentiment-analysis-chart (002).png" class="img-fluid" style="height:400px;" />
                             @*<svg id="chart1" width="300" height="300"></svg>*@
                         </div>
                     </div>
@@ -75,14 +83,14 @@
     </div>
 
 
-    
+
 </div>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
 
 <script>
     $.ajax({
-        url: "https://preptalk.bfmdev1.com/get_corpus_bag_of_words_for_plot",
+        url: "https://preptalk-gi.bfmdev1.com/get_corpus_bag_of_words_for_plot",
         type: 'GET',
         processData: false,
         contentType: false,

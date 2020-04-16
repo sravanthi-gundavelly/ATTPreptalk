@@ -66,7 +66,7 @@ namespace ATPrep.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Login(UserModel userModel)
         {
-            string Baseurl = "https://preptalk.bfmdev1.com/";
+            string Baseurl = "https://preptalk-gi.bfmdev1.com/";
 
             // var Baseurl = "http://p0152610:81/";
             using (var client = new HttpClient())
@@ -93,7 +93,7 @@ namespace ATPrep.Controllers
                     var timeUtc = DateTime.Now;
                    // TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Pacific SA Standard Time");
                     DateTime easternTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(timeUtc, "Pacific Standard Time");
-                    HttpContext.Session.SetString("currentlogin", easternTime.ToString("HH:mm dd/MM/yyyy"));
+                    HttpContext.Session.SetString("currentlogin", easternTime.ToString("HH:mm tt PT dd/MM/yyyy"));
 
                     var claims = new List<Claim>
                 {

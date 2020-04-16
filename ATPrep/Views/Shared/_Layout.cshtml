@@ -28,9 +28,9 @@
 
     <script src="~/js/Url.js"></script>
     <style>
-        li > a:visited {
+        /*li > a:visited {
             background-color: grey !important;
-        }
+        }*/
 
         /* mouse over link */
         /*li > a:hover {
@@ -58,7 +58,7 @@
 
             <hr class="sidebar-divider">
             <a class="d-flex align-items-center justify-content-center" href="#">
-                <img class="logo" id="userimage" style="border-radius:100%;" />
+                <img class="logo img-fluid" id="userimage" style="border-radius:100%;" />
             </a>
 
             <hr class="sidebar-divider">
@@ -136,11 +136,11 @@
                         </li>*@
                         <!-- Nav Item - Alerts -->
                         <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
+                        @*<li class="nav-item dropdown no-arrow mx-1">
                             <img class="logowidth" src="~/images/att.png" />
-                            <!-- Dropdown - Messages -->
+                          
 
-                        </li>
+                        </li>*@
 
                     </ul>
                 </nav>
@@ -183,7 +183,6 @@
                             <span>© @DateTime.Now.Year Pactera Edge.All rights reserved.</span>
                             <div style="position: fixed;bottom: 5px;right:5px;">
                                 <a  type="button" onclick="chatDemo()"><img style="height:100px;" src="~/images/bot1.png" /></a>
-                                @*<input class="d-none d-sm-inline-block btn  btn-primary shadow-sm" type="button" onclick="chatDemo()" background-color="blue" value="" />*@
                             </div>
                             <div id="showbot" style="display:none;">
                                 <div style="position:fixed;bottom:0;height:600px;text-align: initial;right:0;width:530px;font-size:16px;" id="bot" />
@@ -192,9 +191,9 @@
                         </div>
 
                     </div>
-                    @*<div id="showbot" style="float:right;display:none;">
+                    <div id="showbot" style="float:right;display:none;">
                         <div id="bot" style="position:fixed;bottom:0;height:600px;"/>
-                    </div>*@
+                    </div>
 
                     @*<div style="margin:30px;">
                         <div class=" my-auto">
@@ -357,7 +356,8 @@
                     window.WebChat.renderWebChat(
                         {
                             directLine: window.WebChat.createDirectLine({
-                                token: '8Z_Va6AmYMQ.PpFYBmH5u4y0JAGePQTDJetSPTMydbdcC6c7QTzkA-o',
+                                token:"-ti8JHp1Vfg.A22_S2NSWLQvSX_KnY0IwPctyRMvwTuUGe7St-StPd4",
+                               // token: '8U6FceURryU.gitrDuIO5rsUKlESplgvOf39hD7J6wpVdtZ1KBvAWYE',
                             }),
                             userID: user,
                             userName: user,
@@ -369,8 +369,9 @@
                         document.getElementById('bot'))
 
                     $("#bot").css("border", "1px solid grey");
+                    document.getElementsByClassName("css-mfy564")[1].innerHTML = "<h5 style='background: #1c447f;color:#e9ecef;; height: 45px;padding: 10px;'>PrepTalk for EDGE-Protect<span style='float:right;color:#e9ecef;;cursor:pointer;' onclick='closechat()'>×</span></h5>";
 
-                    document.getElementsByClassName("css-mfy564")[1].innerHTML = "<h5 style='background: #1c447f;color:white; height: 45px;padding: 10px;'>PrepTalk Chat<span style='float:right;color:white;cursor:pointer;' onclick='closechat()'>×</span></h5>";
+                 //   document.getElementsByClassName("css-mfy564")[1].innerHTML = "<h5 style='background: #1c447f;color:white; height: 45px;padding: 10px;'>PrepTalk Chat<span style='float:right;color:white;cursor:pointer;' onclick='closechat()'>×</span></h5>";
                    // $(".css-mfy564 span").innerText = "Hello";
                 }
                 else {
