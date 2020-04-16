@@ -246,6 +246,7 @@ app.controller('myCtrl', function ($scope, $timeout) {
         OnSpeechToText(msg);
     });
           
+
     function sendfile(blob) {
         ++speechTextReqCount;
         var data = new FormData();
